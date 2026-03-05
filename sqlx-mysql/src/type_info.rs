@@ -105,7 +105,8 @@ impl PartialEq<MySqlTypeInfo> for MySqlTypeInfo {
             | ColumnType::LongBlob
             | ColumnType::String
             | ColumnType::VarString
-            | ColumnType::Enum => {
+            | ColumnType::Enum
+            | ColumnType::MoUuid => {
                 return self.flags == other.flags;
             }
             _ => {}

@@ -22,6 +22,10 @@ rust_decimal = ["dep:rust_decimal", "rust_decimal/maths", "sqlx-core/rust_decima
 time = ["dep:time", "sqlx-core/time"]
 uuid = ["dep:uuid", "sqlx-core/uuid"]
 
+# MatrixOne database compatibility
+# Enables text-based UUID encoding for MatrixOne's UUID type support
+matrixone = []
+
 [dependencies]
 sqlx-core = { workspace = true }
 

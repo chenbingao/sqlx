@@ -28,6 +28,7 @@ impl Type<MySql> for str {
                 | ColumnType::String
                 | ColumnType::VarString
                 | ColumnType::Enum
+                | ColumnType::MoUuid
         ) && !ty.flags.contains(ColumnFlags::BINARY)
     }
 }

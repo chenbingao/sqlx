@@ -94,6 +94,9 @@ pub enum ColumnType {
     VarString = 0xfd,
     String = 0xfe,
     Geometry = 0xff,
+    
+    /// MatrixOne UUID type (0xf3)
+    MoUuid = 0xf3,
 }
 
 // https://dev.mysql.com/doc/dev/mysql-server/8.0.12/page_protocol_com_query_response_text_resultset_column_definition.html
@@ -202,6 +205,7 @@ impl ColumnType {
             ColumnType::String if is_enum => "ENUM",
             ColumnType::VarChar | ColumnType::VarString if is_binary => "VARBINARY",
 
+            ColumnType::MoUuid => "UUID",
             ColumnType::String => "CHAR",
             ColumnType::VarChar | ColumnType::VarString => "VARCHAR",
 
@@ -252,6 +256,7 @@ impl ColumnType {
             0xfd => ColumnType::VarString,
             0xfe => ColumnType::String,
             0xff => ColumnType::Geometry,
+            0xf3 => ColumnType::MoUuid,
 
             _ => {
                 return Err(err_protocol!("unknown column type 0x{:02x}", id));
