@@ -8,11 +8,23 @@ use crate::encode::{Encode, IsNull};
 use crate::error::BoxDynError;
 use crate::io::MySqlBufMutExt;
 use crate::protocol::text::ColumnType;
+#[cfg(feature = "matrixone")]
+use crate::protocol::text::ColumnFlags;
 use crate::types::Type;
 use crate::value::ValueRef;
 use crate::{MySql, MySqlTypeInfo, MySqlValueRef};
 
 impl Type<MySql> for Uuid {
+    #[cfg(feature = "matrixone")]
+    fn type_info() -> MySqlTypeInfo {
+        MySqlTypeInfo {
+            r#type: ColumnType::VarString,
+            flags: ColumnFlags::empty(),
+            max_size: None,
+        }
+    }
+
+    #[cfg(not(feature = "matrixone"))]
     fn type_info() -> MySqlTypeInfo {
         <&[u8] as Type<MySql>>::type_info()
     }
